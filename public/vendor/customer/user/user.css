@@ -1,0 +1,25 @@
+.image-avatar{
+	max-height: 248px;
+	max-width: 200px;
+	object-fit: cover;
+}
+
+.image-product{
+	max-height: 70px;
+	max-width: 100px;
+	object-fit: cover;
+}
+
+.table-css{
+	background-color: #FE980F;
+  	color: white;
+}
+
+.link-css{
+	color: #FE980F;
+}
+
+.btn-css{
+	background-color: #dae0e5;
+	color: black;
+}

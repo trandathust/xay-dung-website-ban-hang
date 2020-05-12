@@ -1,0 +1,5 @@
+.image_avatar{
+	max-height: 50px;
+	max-width: 50px;
+	object-fit: cover;
+}
