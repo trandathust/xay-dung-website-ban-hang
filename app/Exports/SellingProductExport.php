@@ -26,7 +26,7 @@ class SellingProductExport implements FromCollection
             $ProductSell = DB::table('products')
                 ->where('id', $value->idProduct)
                 ->get();
-            $listProductSell = ([
+            $listProductSell[] = ([
                 'id' => $value->idProduct,
                 'name' => $ProductSell[0]->name,
                 'price' => $ProductSell[0]->price,
@@ -40,9 +40,6 @@ class SellingProductExport implements FromCollection
                 'count' => $value->number,
             ]);
         }
-        // dd($listProductSell);
-        if (empty($listProductSell))
-            return abort(404);
-        return $listProductSell;
+        return collect($listProductSell);
     }
 }

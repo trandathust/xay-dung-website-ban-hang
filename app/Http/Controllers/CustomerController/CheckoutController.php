@@ -67,7 +67,7 @@ class CheckoutController extends Controller
                         'message' => $request->message,
                         'total_money' => $total_money,
                     ]);
-                    //thêm vào bảng product_orders
+                    //thêm vào bảng product_orders và sửa quantity trong bảng products
                     foreach (session('cart') as $id => $value) {
                         if ($timenow > $value['end_sale']) {
                             $this->productOrder->create([
@@ -86,6 +86,11 @@ class CheckoutController extends Controller
                                 'quantity' => $value['quantity'],
                             ]);
                         }
+                        $id_product = $value['id'];
+                        $product_Find = $this->product->findOrfail($id_product);
+                        $this->product->findOrfail($id_product)->update([
+                            'quantity' => $product_Find->quantity - $value['quantity'],
+                        ]);
                     }
                     DB::commit();
                     session()->forget('cart');
@@ -145,6 +150,11 @@ class CheckoutController extends Controller
                                 'quantity' => $value['quantity'],
                             ]);
                         }
+                        $id_product = $value['id'];
+                        $product_Find = $this->product->findOrfail($id_product);
+                        $this->product->findOrfail($id_product)->update([
+                            'quantity' => $product_Find->quantity - $value['quantity'],
+                        ]);
                     }
                     DB::commit();
                     session()->forget('cart');

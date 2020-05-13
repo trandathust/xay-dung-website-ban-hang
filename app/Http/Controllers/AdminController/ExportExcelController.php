@@ -19,15 +19,17 @@ class ExportExcelController extends Controller
 
     public function exportInventoryProduct()
     {
-        return Excel::download(new InventoryProductExport, 'Hàng Tổn.xlsx');
+        return Excel::download(new InventoryProductExport(), 'Hàng Tổn.xlsx');
     }
 
     public function exportSellingProduct()
     {
         return Excel::download(new SellingProductExport, 'Sản Phẩm Bán Chạy.xlsx');
     }
-    public function exportAllProduct()
+    public function exportAllProduct(Request $request)
     {
-        return Excel::download(new AllProductExport, 'Tất Cả Sản Phẩm.xlsx');
+        $start_date = $request->start_date;
+        $end_date = $request->end_date;
+        return Excel::download(new AllProductExport($start_date, $end_date), 'Tất Cả Sản Phẩm.xlsx');
     }
 }

@@ -94,6 +94,7 @@ Route::middleware('Setting')->group(function () {
                 Route::post('edit/{id}', 'AdminController\ProductController@postEditProduct')->name('admin.posteditproduct')->middleware('CheckACL:edit-product');
                 Route::get('delete/{id}', 'AdminController\ProductController@DeleteProduct')->name('admin.deleteproduct')->middleware('CheckACL:delete-product');
                 Route::post('edit-status/{id}', 'AdminController\ProductController@postEditStatus')->name('admin.editstatus')->middleware('CheckACL:update-product');
+                Route::post('search', 'AdminController\ProductController@getSearch')->name('admin.productSearch');
             });
 
             //slider - Trang bìa của website
@@ -132,6 +133,16 @@ Route::middleware('Setting')->group(function () {
                 Route::get('detail/{id}', 'AdminController\OrderController@getDetailOrder')->name('admin.detailorder')->middleware('CheckACL:list-order');
                 Route::post('update/{id}', 'AdminController\OrderController@updateOrder')->name('admin.updateorder')->middleware('CheckACL:update-order');
                 Route::get('delete/{id}', 'AdminController\OrderController@deleteOrder')->name('admin.deleteorder')->middleware('CheckACL:delete-order');
+                Route::post('search', 'AdminController\OrderController@postSearch')->name('admin.order.search');
+                Route::get('search-today', 'AdminController\OrderController@searchToday')->name('admin.order.search.today');
+                Route::get('search-yesterday', 'AdminController\OrderController@searchYesterday')->name('admin.order.search.yesterday');
+                Route::get('search-week', 'AdminController\OrderController@searchWeek')->name('admin.order.search.week');
+                Route::get('search-lastweek', 'AdminController\OrderController@searchLastWeek')->name('admin.order.search.lastweek');
+                Route::get('search-month', 'AdminController\OrderController@searchMonth')->name('admin.order.search.month');
+                Route::get('search-lastmonth', 'AdminController\OrderController@searchLastMonth')->name('admin.order.search.lastmonth');
+                Route::get('search-year', 'AdminController\OrderController@searchYear')->name('admin.order.search.year');
+                Route::get('search-lastyear', 'AdminController\OrderController@searchLastYear')->name('admin.order.search.lastyear');
+                Route::get('search-custom', 'AdminController\OrderController@searchCustom')->name('admin.order.search.custom');
             });
 
             //nhà cung cấp hàng
@@ -160,9 +171,9 @@ Route::middleware('Setting')->group(function () {
             //export file
             Route::prefix('export')->group(function () {
                 Route::get('sale-product', 'AdminController\ExportExcelController@exportSaleProduct')->name('admin.export_saleproduct');
-                Route::get('inventory-product', 'AdminController\ExportExcelController@exportInventoryProduct')->name('admin.export_inventoryproduct');
+                Route::post('inventory-product', 'AdminController\ExportExcelController@exportInventoryProduct')->name('admin.export_inventoryproduct');
                 Route::get('selling-product', 'AdminController\ExportExcelController@exportSellingProduct')->name('admin.export_sellingproduct');
-                Route::get('all-product', 'AdminController\ExportExcelController@exportAllProduct')->name('admin.export_allproduct');
+                Route::post('all-product', 'AdminController\ExportExcelController@exportAllProduct')->name('admin.export_allproduct');
             });
 
             //logout

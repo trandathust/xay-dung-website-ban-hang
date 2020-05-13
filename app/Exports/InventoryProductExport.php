@@ -4,10 +4,11 @@ namespace App\Exports;
 
 use App\Models\Product;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use DB;
 use Carbon\Carbon;
 
-class InventoryProductExport implements FromCollection
+class InventoryProductExport implements FromCollection, WithHeadings
 {
     /**
      * @return \Illuminate\Support\Collection
@@ -30,8 +31,8 @@ class InventoryProductExport implements FromCollection
                     'id' => $item->id,
                     'name' => $item->name,
                     'price' => $item->price,
-                    'price_sale' => $item->price_sale,
                     'quantity' => $item->quantity,
+                    'price_sale' => $item->price_sale,
                     'content' => $item->content,
                     'start_sale' => $item->start_sale,
                     'end_sale' => $item->end_sale,
@@ -40,8 +41,22 @@ class InventoryProductExport implements FromCollection
                 ]);
             }
         }
-        if (empty($listInventory))
-            return abort(404);
-        return $listInventory;
+        return collect($listInventory);
+    }
+
+    public function headings(): array
+    {
+        return [
+            'ID',
+            'Name',
+            'Price',
+            'Miêu Tả Sản Phẩm',
+            'Số Lượng',
+            'Giá Giảm',
+            'Bắt Đầu KM',
+            'Kết Thúc KM',
+            'Kích Cỡ',
+            'Trọng Lượng',
+        ];
     }
 }

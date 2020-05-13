@@ -14,33 +14,49 @@
             <div class="card">
                 @if(request()->type == null)
                 <div class="card-header">
-                    <div class="row ">
-                        <div class="col-md-2">
-                            <a href="{{route('admin.addproduct')}}" type="submit" class="btn btn-primary btn-sm ">Thêm
-                                mới</a>
-                        </div>
-                        <div class="col-md-8">
-                            <a href="{{route('admin.export_allproduct')}}" type="submit" class="btn btn-primary btn-sm">
-                                Export</a>
-                        </div>
-                        <div class="col-md-1">
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button"
-                                    class="btn btn-primary btn-sm btn-block dropdown-toggle" data-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
-                                    Tất Cả Sản Phẩm
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct'). '?type=sale'}}">Sản
-                                        Phẩm Khuyến Mại</a>
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct') . '?type=selling'}}">Sản
-                                        Phẩm Bán Chạy</a>
-                                    <a class="dropdown-item"
-                                        href="{{route('admin.viewproduct') . '?type=inventory'}}">Hàng Tồn Kho</a>
-                                </div>
+                    <nav class="navbar navbar-light bg-light justify-content-between">
+                        <a href="{{route('admin.addproduct')}}" type="submit" class="btn btn-primary ">Thêm
+                            mới</a>
+
+                        <div class="btn-group" role="group">
+                            <button id="btnGroupDrop1" type="button"
+                                class="btn btn-primary btn-block dropdown-toggle btn-warning" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                Tất Cả Sản Phẩm
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                <a class="dropdown-item" href="{{route('admin.viewproduct'). '?type=sale'}}">Sản
+                                    Phẩm Khuyến Mại</a>
+                                <a class="dropdown-item" href="{{route('admin.viewproduct') . '?type=selling'}}">Sản
+                                    Phẩm Bán Chạy</a>
+                                <a class="dropdown-item" href="{{route('admin.viewproduct') . '?type=inventory'}}">Hàng
+                                    Tồn Kho</a>
                             </div>
                         </div>
-                    </div>
+                        <form action="{{route('admin.export_allproduct')}}" method="post">
+                            @csrf
+                            <div class="input-group-prepend">
+                                <input type="date" class="form-control" name="start_date">
+                                <input type="date" class="form-control" name="end_date">
+                                <button href="{{route('admin.export_allproduct')}}" type="submit"
+                                    class="btn btn-outline-danger">
+                                    Export</button>
+                            </div>
+                        </form>
+
+
+                        <form class="form-inline" action="{{route('admin.productSearch')}}" method="POST">
+                            @csrf
+                            <input class="form-control @error('data_search') is-invalid @enderror" type="text"
+                                placeholder="Nhập tên sản phẩm" name="data_search">
+                            @error('data_search')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
+                            <button class="btn btn-outline-success" type="submit"
+                                href="{{route('admin.productSearch')}}">Tìm</button>
+                        </form>
+
+                    </nav>
                 </div>
                 <div class="card-body">
                     <table id="table" class="table table-bordered table-hover">
@@ -101,31 +117,53 @@
 
                 @elseif(request()-> type === 'sale')
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <a href="{{route('admin.addproduct')}}" type="submit" class="btn btn-primary btn-sm">Thêm
-                                mới</a>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="collapse navbar-collapse" id="navbarText">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a href="{{route('admin.addproduct')}}" type="submit"
+                                        class="btn btn-primary mr-sm-4">Thêm
+                                        mới</a>
+                                </li>
+                                <li class="nav-item">
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button"
+                                            class="btn btn-warning mr-sm-4 dropdown-toggle " data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            Sản Phẩm Khuyến Mại
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                            <a class="dropdown-item"
+                                                href="{{route('admin.viewproduct') . '?type=inventory'}}">Hàng
+                                                Tồn Kho</a>
+                                            <a class="dropdown-item" href="{{route('admin.viewproduct')}}">Tất Cả Sản
+                                                Phẩm</a>
+                                            <a class="dropdown-item"
+                                                href="{{route('admin.viewproduct') . '?type=selling'}}">Sản
+                                                Phẩm Bán Chạy</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('admin.export_saleproduct')}}" type="submit"
+                                        class="btn btn-danger mr-sm-4">
+                                        Export</a>
+                                </li>
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0" action=" {{route('admin.productSearch')}}"
+                                method="POST">
+                                @csrf
+                                <input class="form-control @error('data_search') is-invalid @enderror" type="text"
+                                    placeholder="Nhập tên sản phẩm" name="data_search">
+
+                                <button class="btn btn-outline-success" type="submit"
+                                    href="{{route('admin.productSearch')}}">Tìm</button>
+                            </form>
                         </div>
-                        <div class="col-md-8">
-                            <a href="{{route('admin.export_saleproduct')}}" type="submit"
-                                class="btn btn-primary btn-sm"> Export</a>
-                        </div>
-                        <div class="col col-md-1">
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Sản Phẩm Khuyến Mại
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item"
-                                        href="{{route('admin.viewproduct') . '?type=inventory'}}">Hàng Tồn Kho</a>
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct')}}">Tất Cả Sản Phẩm</a>
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct') . '?type=selling'}}">Sản
-                                        Phẩm Bán Chạy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+
+                    </nav>
                 </div>
 
                 <div class="card-body">
@@ -184,31 +222,49 @@
 
                 @elseif(request()-> type ==='inventory')
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col col-md-2">
-                            <a href="{{route('admin.addproduct')}}" type="submit" class="btn btn-primary btn-sm">Thêm
-                                mới</a>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="collapse navbar-collapse" id="navbarText">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a href="{{route('admin.addproduct')}}" type="submit"
+                                        class="btn btn-primary mr-sm-4 ">Thêm
+                                        mới</a>
+                                </li>
+                                <li class="nav-item">
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button"
+                                            class="btn btn-warning mr-sm-4 dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            Hàng Tồn Kho
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                            <a class="dropdown-item"
+                                                href="{{route('admin.viewproduct'). '?type=sale'}}">Sản
+                                                Phẩm Khuyến Mại</a>
+                                            <a class="dropdown-item" href="{{route('admin.viewproduct')}}">Tất Cả Sản
+                                                Phẩm</a>
+                                            <a class="dropdown-item"
+                                                href="{{route('admin.viewproduct') . '?type=selling'}}">Sản
+                                                Phẩm Bán Chạy</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('admin.export_inventoryproduct')}}" type="submit"
+                                        class="btn btn-danger mr-sm-4"> Export</a>
+                                </li>
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0" action=" {{route('admin.productSearch')}}"
+                                method="POST">
+                                @csrf
+                                <input class="form-control @error('data_search') is-invalid @enderror" type="text"
+                                    placeholder="Nhập tên sản phẩm" name="data_search">
+
+                                <button class="btn btn-outline-success" type="submit"
+                                    href="{{route('admin.productSearch')}}">Tìm</button>
+                            </form>
                         </div>
-                        <div class="col-md-8">
-                            <a href="{{route('admin.export_inventoryproduct')}}" type="submit"
-                                class="btn btn-primary btn-sm"> Export</a>
-                        </div>
-                        <div class="col col-md-1">
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Hàng Tồn Kho
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct'). '?type=sale'}}">Sản
-                                        Phẩm Khuyến Mại</a>
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct')}}">Tất Cả Sản Phẩm</a>
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct') . '?type=selling'}}">Sản
-                                        Phẩm Bán Chạy</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </nav>
                 </div>
                 <div class="card-body">
                     <table id="table" class="table table-bordered table-hover">
@@ -265,31 +321,49 @@
 
                 @elseif(request()-> type ==='selling')
                 <div class="card-header">
-                    <div class="row">
-                        <div class="col col-md-2">
-                            <a href="{{route('admin.addproduct')}}" type="submit" class="btn btn-primary btn-sm">Thêm
-                                mới</a>
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                        <div class="collapse navbar-collapse" id="navbarText">
+                            <ul class="navbar-nav mr-auto">
+                                <li class="nav-item active">
+                                    <a href="{{route('admin.addproduct')}}" type="submit"
+                                        class="btn btn-primary mr-sm-4">Thêm
+                                        mới</a>
+                                </li>
+                                <li class="nav-item">
+                                    <div class="btn-group" role="group">
+                                        <button id="btnGroupDrop1" type="button"
+                                            class="btn btn-warning mr-sm-4 dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            Sản Phẩm Bán Chạy
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                            <a class="dropdown-item"
+                                                href="{{route('admin.viewproduct'). '?type=sale'}}">Sản
+                                                Phẩm Khuyến Mại</a>
+                                            <a class="dropdown-item" href="{{route('admin.viewproduct')}}">Tất Cả Sản
+                                                Phẩm</a>
+                                            <a class="dropdown-item"
+                                                href="{{route('admin.viewproduct') . '?type=inventory'}}">Hàng Tồn
+                                                Kho</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{route('admin.export_sellingproduct')}}" type="submit"
+                                        class="btn btn-danger mr-sm-4"> Export</a>
+                                </li>
+                            </ul>
+                            <form class="form-inline my-2 my-lg-0" action=" {{route('admin.productSearch')}}"
+                                method="POST">
+                                @csrf
+                                <input class="form-control @error('data_search') is-invalid @enderror" type="text"
+                                    placeholder="Nhập tên sản phẩm" name="data_search">
+
+                                <button class="btn btn-outline-success" type="submit"
+                                    href="{{route('admin.productSearch')}}">Tìm</button>
+                            </form>
                         </div>
-                        <div class="col-md-8">
-                            <a href="{{route('admin.export_sellingproduct')}}" type="submit"
-                                class="btn btn-primary btn-sm"> Export</a>
-                        </div>
-                        <div class="col col-md-1">
-                            <div class="btn-group" role="group">
-                                <button id="btnGroupDrop1" type="button" class="btn btn-primary btn-sm dropdown-toggle"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Sản Phẩm Bán Chạy
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct'). '?type=sale'}}">Sản
-                                        Phẩm Khuyến Mại</a>
-                                    <a class="dropdown-item" href="{{route('admin.viewproduct')}}">Tất Cả Sản Phẩm</a>
-                                    <a class="dropdown-item"
-                                        href="{{route('admin.viewproduct') . '?type=inventory'}}">Hàng Tồn Kho</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </nav>
                 </div>
                 <div class="card-body">
                     <table id="table" class="table table-bordered table-hover">
@@ -378,6 +452,7 @@
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 {{-- hình ảnh sản phẩm --}}
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/admin/product/add/view.css')}}">
+
 @endsection
 
 

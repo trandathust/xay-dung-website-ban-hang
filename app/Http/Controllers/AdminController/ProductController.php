@@ -18,6 +18,7 @@ use App\Models\Brand;
 use App\Models\Supplier;
 use Carbon;
 use App\Models\ProductOrder;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -73,8 +74,9 @@ class ProductController extends Controller
 
 
     //xem thông tin sản phẩm
-    public function viewProduct()
+    public function viewProduct(Request $request)
     {
+        $search = ($request->search);
         //tất cả sản phẩm
         $listProduct = $this->product->all();
         //sản phẩm đang khuyến mại
@@ -110,7 +112,6 @@ class ProductController extends Controller
         }
         $listProductSelling = $this->listProductSale($product_Sell);
 
-
         //hàng tồn
         $dt = Carbon\Carbon::now()->subDays(30);
         $listInventory = [];
@@ -129,7 +130,9 @@ class ProductController extends Controller
             }
             $i = $i + 1;
         }
-        return view('admin.products.view', compact('listProduct', 'listProductSale', 'listProductSelling', 'listInventory', 'mytime', 'percent_product'));
+
+
+        return view('admin.products.view', compact('search', 'listProduct', 'listProductSale', 'listProductSelling', 'listInventory', 'mytime', 'percent_product'));
     }
 
     //thêm sản phẩm mới
@@ -302,5 +305,19 @@ class ProductController extends Controller
             'code' => 200,
             'message' => 'success'
         ], 200);
+    }
+
+    public function getSearch(Request $request)
+    {
+        $request->validate([
+            'data_search' => 'required|max:255',
+        ], [
+            'data_search.required' => 'Chưa nhập thông tin'
+        ]);
+        $keywords  = $request->data_search;
+
+        $mytime = Carbon\Carbon::now()->toDateTimeString();
+        $listProduct = $this->product->where('name', 'like', '%' . $keywords . '%')->get();
+        return view('admin.products.search', compact('mytime', 'listProduct'));
     }
 }
