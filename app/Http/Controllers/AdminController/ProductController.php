@@ -52,22 +52,27 @@ class ProductController extends Controller
 
     function listProductSale($product)
     {
+        $listProductSell  = [];
         foreach ($product as $key => $value) {
             $ProductSell = DB::table('products')
                 ->where('id', $value->idProduct)
                 ->select('id as id', 'products.name as name', 'products.price as price', 'products.price_sale as price_sale', 'products.end_sale as end_sale', 'products.feature_image_path as image', 'products.status as status', 'products.quantity as quantity')
                 ->get()->toArray();
-            $listProductSell[] = ([
-                'id' => $value->idProduct,
-                'name' => $ProductSell[0]->name,
-                'price' => $ProductSell[0]->price,
-                'price_sale' => $ProductSell[0]->price_sale,
-                'end_sale' => $ProductSell[0]->end_sale,
-                'count' => $value->number,
-                'feature_image_path' => $ProductSell[0]->image,
-                'status' => $ProductSell[0]->status,
-                'quantity' => $ProductSell[0]->quantity,
-            ]);
+            if ($ProductSell) {
+                $listProductSell[] = ([
+                    'id' => $value->idProduct,
+                    'name' => $ProductSell[0]->name,
+                    'price' => $ProductSell[0]->price,
+                    'price_sale' => $ProductSell[0]->price_sale,
+                    'end_sale' => $ProductSell[0]->end_sale,
+                    'count' => $value->number,
+                    'feature_image_path' => $ProductSell[0]->image,
+                    'status' => $ProductSell[0]->status,
+                    'quantity' => $ProductSell[0]->quantity,
+                ]);
+            } else {
+                $listProductSell  = [];
+            }
         }
         return ($listProductSell);
     }
@@ -92,7 +97,7 @@ class ProductController extends Controller
 
 
         $day_old = Carbon\Carbon::now()->subDays(60)->format('Y-m-d');
-
+        $percent_product = [];
         foreach ($product_Sell as $key => $value) {
             $productSell_old = DB::table('product_orders')
                 ->where('product_id', $value->idProduct)

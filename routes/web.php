@@ -27,12 +27,6 @@ Route::middleware('Setting')->group(function () {
 
     //Sau khi login
     Route::middleware(['auth'])->group(function () {
-        /*
-        |--------------------------------------------------------------------------
-        | AdminRoute | Frontend
-        |--------------------------------------------------------------------------
-
-        */
         //Frontend
         Route::prefix('admin')->middleware('CheckAdmin')->group(function () {
 
