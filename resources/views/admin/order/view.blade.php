@@ -84,12 +84,27 @@
                                         Exports
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Hôm Nay</a>
-                                        <a class="dropdown-item" href="#">Hôm Qua</a>
-                                        <a class="dropdown-item" href="#">Tuần Này</a>
-                                        <a class="dropdown-item" href="#">Tháng Này</a>
-                                        <a class="dropdown-item" href="#">Năm Nay</a>
-                                        <a class="dropdown-item" href="#">Chọn Thời Gian</a>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order.today')}}">Hôm
+                                            Nay</a>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order.yesterday')}}">Hôm
+                                            Qua</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order.week')}}">Tuần
+                                            Này</a>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order.lastweek')}}">Tuần
+                                            Trước</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order.month')}}">Tháng
+                                            Này</a>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order.lastmonth')}}">Tháng
+                                            Trước</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order.year')}}">Năm Nay</a>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order.lastyear')}}">Năm
+                                            Trước</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="{{route('admin.exp.order')}}">Toàn Thời
+                                            Gian</a>
                                     </div>
                                 </div>
                             </form>
@@ -186,7 +201,6 @@
     </div>
     <!-- /.container-fluid -->
 </div>
-</div>
 <!-- /.content-wrapper -->
 @endsection
 
@@ -199,7 +213,6 @@
 {{-- hình ảnh sản phẩm --}}
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/admin/order/view.css')}}">
 
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
 @endsection
 
@@ -220,10 +233,5 @@
 
 <script src="{{asset('vendor/admin/print/jquery.printPage.js')}}"></script>
 <script src="{{asset('vendor/admin/print/print.js')}}"></script>
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
 
 @endsection

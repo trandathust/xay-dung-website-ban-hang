@@ -170,10 +170,21 @@ Route::middleware('Setting')->group(function () {
             });
             //export file
             Route::prefix('export')->group(function () {
+                //product
                 Route::get('sale-product', 'AdminController\ExportExcelController@exportSaleProduct')->name('admin.export_saleproduct');
                 Route::post('inventory-product', 'AdminController\ExportExcelController@exportInventoryProduct')->name('admin.export_inventoryproduct');
                 Route::get('selling-product', 'AdminController\ExportExcelController@exportSellingProduct')->name('admin.export_sellingproduct');
                 Route::post('all-product', 'AdminController\ExportExcelController@exportAllProduct')->name('admin.export_allproduct');
+                //order
+                Route::get('order-today', 'AdminController\ExportExcelController@exportOrderToday')->name('admin.exp.order.today');
+                Route::get('order-yesterday', 'AdminController\ExportExcelController@exportOrderYesterday')->name('admin.exp.order.yesterday');
+                Route::get('order-week', 'AdminController\ExportExcelController@exportOrderWeek')->name('admin.exp.order.week');
+                Route::get('order-lastweek', 'AdminController\ExportExcelController@exportOrderLastWeek')->name('admin.exp.order.lastweek');
+                Route::get('order-month', 'AdminController\ExportExcelController@exportOrderMonth')->name('admin.exp.order.month');
+                Route::get('order-lastmonth', 'AdminController\ExportExcelController@exportOrderLastMonth')->name('admin.exp.order.lastmonth');
+                Route::get('order-year', 'AdminController\ExportExcelController@exportOrderYear')->name('admin.exp.order.year');
+                Route::get('order-lastyear', 'AdminController\ExportExcelController@exportOrderLastYear')->name('admin.exp.order.lastyear');
+                Route::get('order', 'AdminController\ExportExcelController@exportOrder')->name('admin.exp.order');
             });
 
             //logout
