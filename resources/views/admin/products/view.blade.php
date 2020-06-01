@@ -3,12 +3,8 @@
 <title>Sản Phẩm</title>
 @endsection
 @section('content')
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Main content -->
-    <!-- Content Header (Page header) -->
     @include('admin.general.content-header',['name' => 'Sản Phẩm'])
-    <!-- /.content-header -->
     <div class="content">
         <div class="container-fluid">
             <div class="card">
@@ -17,7 +13,6 @@
                     <nav class="navbar navbar-light bg-light justify-content-between">
                         <a href="{{route('admin.addproduct')}}" type="submit" class="btn btn-primary ">Thêm
                             mới</a>
-
                         <div class="btn-group" role="group">
                             <button id="btnGroupDrop1" type="button"
                                 class="btn btn-primary btn-block dropdown-toggle btn-warning" data-toggle="dropdown"
@@ -43,19 +38,9 @@
                                     Export</button>
                             </div>
                         </form>
-
-
-                        <form class="form-inline" action="{{route('admin.productSearch')}}" method="POST">
-                            @csrf
-                            <input class="form-control @error('data_search') is-invalid @enderror" type="text"
-                                placeholder="Nhập tên sản phẩm" name="data_search">
-                            @error('data_search')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                            <button class="btn btn-outline-success" type="submit"
-                                href="{{route('admin.productSearch')}}">Tìm</button>
-                        </form>
-
+                        <div class="form-inline my-2 my-lg-0">
+                            <input class="form-control " type="text" placeholder="Nhập tên sản phẩm" id="data_search">
+                        </div>
                     </nav>
                 </div>
                 <div class="card-body">
@@ -73,7 +58,7 @@
                                 <th>#</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody_search">
                             @foreach($listProduct as $product)
                             <tr>
                                 <td>{{$product -> id}}</td>
@@ -150,19 +135,11 @@
                                         Export</a>
                                 </li>
                             </ul>
-                            <form class="form-inline my-2 my-lg-0" action=" {{route('admin.productSearch')}}"
-                                method="POST">
-                                @csrf
-                                <input class="form-control @error('data_search') is-invalid @enderror" type="text"
-                                    placeholder="Nhập tên sản phẩm" name="data_search">
-
-                                <button class="btn btn-outline-success" type="submit"
-                                    href="{{route('admin.productSearch')}}">Tìm</button>
-                            </form>
+                            <div class="form-inline my-2 my-lg-0">
+                                <input class="form-control " type="text" placeholder="Nhập tên sản phẩm"
+                                    id="data_search">
+                            </div>
                         </div>
-
-
-
                     </nav>
                 </div>
 
@@ -181,7 +158,7 @@
                                 <th>#</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody_search">
                             @foreach($listProductSale as $sale)
                             <tr>
                                 <td>{{$sale -> id}}</td>
@@ -254,15 +231,10 @@
                                         class="btn btn-danger mr-sm-4"> Export</a>
                                 </li>
                             </ul>
-                            <form class="form-inline my-2 my-lg-0" action=" {{route('admin.productSearch')}}"
-                                method="POST">
-                                @csrf
-                                <input class="form-control @error('data_search') is-invalid @enderror" type="text"
-                                    placeholder="Nhập tên sản phẩm" name="data_search">
-
-                                <button class="btn btn-outline-success" type="submit"
-                                    href="{{route('admin.productSearch')}}">Tìm</button>
-                            </form>
+                            <div class="form-inline my-2 my-lg-0">
+                                <input class="form-control " type="text" placeholder="Nhập tên sản phẩm"
+                                    id="data_search">
+                            </div>
                         </div>
                     </nav>
                 </div>
@@ -279,7 +251,7 @@
                                 <th>#</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody_search">
                             @foreach($listInventory as $sale)
                             <tr>
                                 <td>{{$sale['id']}}</td>
@@ -353,15 +325,10 @@
                                         class="btn btn-danger mr-sm-4"> Export</a>
                                 </li>
                             </ul>
-                            <form class="form-inline my-2 my-lg-0" action=" {{route('admin.productSearch')}}"
-                                method="POST">
-                                @csrf
-                                <input class="form-control @error('data_search') is-invalid @enderror" type="text"
-                                    placeholder="Nhập tên sản phẩm" name="data_search">
-
-                                <button class="btn btn-outline-success" type="submit"
-                                    href="{{route('admin.productSearch')}}">Tìm</button>
-                            </form>
+                            <div class="form-inline my-2 my-lg-0">
+                                <input class="form-control " type="text" placeholder="Nhập tên sản phẩm"
+                                    id="data_search">
+                            </div>
                         </div>
                     </nav>
                 </div>
@@ -379,7 +346,7 @@
                                 <th>#</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tbody_search">
                             @foreach($listProductSelling as $sale)
                             <tr>
                                 <td>{{$sale['id']}}</td>

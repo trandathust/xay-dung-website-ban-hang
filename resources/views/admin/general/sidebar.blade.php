@@ -28,6 +28,7 @@
                         </p>
                     </a>
                 </li>
+                @if(in_array('product',$listPermissionOfParent))
                 <li class="nav-item has-treeview">
                     <a href="{{route('admin.viewproduct')}}" class="nav-link">
                         <i class="nav-icon fab fa-product-hunt"></i>
@@ -36,6 +37,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('order',$listPermissionOfParent))
                 <li class="nav-item has-treeview">
                     <a href="{{route('admin.getorder')}}" class="nav-link">
                         <i class="nav-icon fa fa-shopping-cart"></i>
@@ -44,6 +47,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('category',$listPermissionOfParent))
                 <li class="nav-item">
                     <a href="{{route('admin.addcategory')}}" class="nav-link ">
                         <i class="nav-icon fas fa-th"></i>
@@ -52,6 +57,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('supplier',$listPermissionOfParent))
                 <li class="nav-item has-treeview">
                     <a href="{{route('admin.getsupplier')}}" class="nav-link">
                         <i class="nav-icon far fa-user"></i>
@@ -60,6 +67,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('brand',$listPermissionOfParent))
                 <li class="nav-item has-treeview">
                     <a href="{{route('admin.addbrand')}}" class="nav-link">
                         <i class="nav-icon fas fa-tags"></i>
@@ -68,6 +77,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('menu',$listPermissionOfParent))
                 <li class="nav-item has-treeview">
                     <a href="{{route('admin.addmenu')}}" class="nav-link">
                         <i class="nav-icon fas fa-bars"></i>
@@ -76,6 +87,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('slider',$listPermissionOfParent))
                 <li class="nav-item has-treeview">
                     <a href="{{route('admin.viewslider')}}" class="nav-link">
                         <i class="nav-icon fas fa-bomb"></i>
@@ -84,6 +97,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('setting',$listPermissionOfParent))
                 <li class="nav-item has-treeview">
                     <a href="{{route('admin.addsetting')}}" class="nav-link">
                         <i class="nav-icon fas fa-cogs"></i>
@@ -92,6 +107,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('blog',$listPermissionOfParent))
                 <li class="nav-item has-treeview">
                     <a href="{{route('admin.getviewblog')}}" class="nav-link">
                         <i class="nav-icon fas fa-blog"></i>
@@ -100,6 +117,8 @@
                         </p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('user',$listPermissionOfParent))
                 <li class="nav-header">QUẢN LÝ TÀI KHOẢN</li>
                 <li class="nav-item">
                     <a href="{{route('admin.adduser')}}" class="nav-link">
@@ -113,12 +132,15 @@
                         <p>Danh Sách</p>
                     </a>
                 </li>
+                @endif
+                @if(in_array('role',$listPermissionOfParent))
                 <li class="nav-item">
                     <a href="{{route('admin.addrole')}}" class="nav-link">
                         <i class="fas fa-users-cog nav-icon"></i>
                         <p>Vai Trò</p>
                     </a>
                 </li>
+                @endif
                 <li class="nav-header">CÁ NHÂN</li>
                 <li class="nav-item">
                     <a href="{{route('admin.profile')}}" class="nav-link">

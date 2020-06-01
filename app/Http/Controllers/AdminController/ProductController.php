@@ -299,8 +299,6 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
-
     public function postEditStatus($id, Request $request)
     {
         $this->product->findOrfail($id)->update([
@@ -310,19 +308,5 @@ class ProductController extends Controller
             'code' => 200,
             'message' => 'success'
         ], 200);
-    }
-
-    public function getSearch(Request $request)
-    {
-        $request->validate([
-            'data_search' => 'required|max:255',
-        ], [
-            'data_search.required' => 'Chưa nhập thông tin'
-        ]);
-        $keywords  = $request->data_search;
-
-        $mytime = Carbon\Carbon::now()->toDateTimeString();
-        $listProduct = $this->product->where('name', 'like', '%' . $keywords . '%')->get();
-        return view('admin.products.search', compact('mytime', 'listProduct'));
     }
 }

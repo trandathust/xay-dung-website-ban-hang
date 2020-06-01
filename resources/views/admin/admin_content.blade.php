@@ -9,6 +9,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-6">
+                    {{-- đơn hàng trong 30 ngày  --}}
+                    @if(in_array('order',$listPermissionOfParent))
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
@@ -28,12 +30,12 @@
                                 <p class="d-flex flex-column">
                                     <span class="text-bold text-lg">
                                         <?php
-                  $total = 0;
-                  foreach ($orderOfMonth as $key => $value) {
-                    $total +=$value-> value;
-                  }
-                  echo($total);
-                  ?>
+                                            $total = 0;
+                                            foreach ($orderOfMonth as $key => $value) {
+                                                $total +=$value-> value;
+                                            }
+                                            echo($total);
+                                            ?>
                                     </span>
                                     <span>Đơn Hàng</span>
                                 </p>
@@ -48,6 +50,8 @@
                             </div>
                         </div>
                     </div>
+                    @endif
+                    @if(in_array('product',$listPermissionOfParent))
                     <div class="card">
                         <div class="card-header border-0">
                             <h3 class="card-title">Sản Phẩm Bán Chạy Trong 30 Ngày</h3>
@@ -115,8 +119,11 @@
                             <a href="{{route('admin.viewproduct') . '?type=selling'}}" class="uppercase">Xem Thêm</a>
                         </div>
                     </div>
+                    @endif
                 </div>
                 <div class="col-lg-6">
+                    {{-- tổng tiền hàng  --}}
+                    @if(in_array('order',$listPermissionOfParent))
                     <div class="card">
                         <div class="card-header border-0">
                             <div class="d-flex justify-content-between">
@@ -138,12 +145,12 @@
                                 <p class="d-flex flex-column">
                                     <span class="text-bold text-lg">
                                         <?php
-                  $total = 0;
-                  foreach ($orderSaleOfMonth as $key => $value) {
-                    $total = $total + $value-> value;
-                  }
-                  echo (number_format($total));
-                  ?>
+                                            $total = 0;
+                                            foreach ($orderSaleOfMonth as $key => $value) {
+                                                $total = $total + $value-> value;
+                                            }
+                                            echo (number_format($total));
+                                            ?>
 
                                         đ</span>
                                     <span>Tiền</span>
@@ -167,11 +174,12 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- PRODUCT LIST -->
+                    @endif
+                    <!-- danh sách sản phẩm gần đây -->
+                    @if(in_array('product',$listPermissionOfParent))
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Recently Added Products</h3>
+                            <h3 class="card-title">Sản Phẩm Thêm Gần Đây</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -208,10 +216,10 @@
                                         </a>
                                         <span class="product-description">
                                             <?php
-                    $content = $item -> content ;
-                    $content = substr($content,0,90);
-                    echo($content);
-                    ?>
+                                            $content = $item -> content ;
+                                            $content = substr($content,0,90);
+                                            echo($content);
+                                            ?>
                                         </span>
                                     </div>
                                 </li>
@@ -223,7 +231,9 @@
                             <a href="{{route('admin.viewproduct')}}" class="uppercase">Xem Thêm</a>
                         </div>
                     </div>
+                    @endif
                 </div>
+                @if(in_array('order',$listPermissionOfParent))
                 <div class="col-lg-12">
                     <!-- TABLE: LATEST ORDERS -->
                     <div class="card">
@@ -287,29 +297,29 @@
                                                 @endforeach
                                             </td>
                                             <td><?php
-            $total_sale = 0;
-            foreach ($totalPrice as $key) {
-              if($key -> order_id == $item -> id){
-                if($key -> price_sale == null || $key -> price == $key -> price_sale)
-                  $total_sale = $total_sale + $key -> quantity * $key -> price;
-                else
-                  $total_sale = $total_sale + $key -> quantity * $key -> price_sale;
-              }
-            }
-            $total = 0;
-            foreach ($totalPrice as $key) {
-              if($key -> order_id == $item -> id)
-                  $total = $total + $key -> quantity * $key -> price;
-            }
-            if($total == $total_sale)
-              echo(number_format($total));
-            else{
-            echo("<del>");
-            echo(number_format($total));
-            echo("</del> </br>");
-            echo(number_format($total_sale));
-            }
-            ?>
+                                                    $total_sale = 0;
+                                                    foreach ($totalPrice as $key) {
+                                                    if($key -> order_id == $item -> id){
+                                                        if($key -> price_sale == null || $key -> price == $key -> price_sale)
+                                                        $total_sale = $total_sale + $key -> quantity * $key -> price;
+                                                        else
+                                                        $total_sale = $total_sale + $key -> quantity * $key -> price_sale;
+                                                    }
+                                                    }
+                                                    $total = 0;
+                                                    foreach ($totalPrice as $key) {
+                                                    if($key -> order_id == $item -> id)
+                                                        $total = $total + $key -> quantity * $key -> price;
+                                                    }
+                                                    if($total == $total_sale)
+                                                    echo(number_format($total));
+                                                    else{
+                                                    echo("<del>");
+                                                    echo(number_format($total));
+                                                    echo("</del> </br>");
+                                                    echo(number_format($total_sale));
+                                                    }
+                                                    ?>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -319,11 +329,69 @@
                         </div>
                         <div class="card-footer clearfix">
                             <a href="" class="btn btn-sm btn-info float-left">Thêm Đơn Hàng</a>
-                            <a href="{{route('admin.getorder')}}" class="btn btn-sm btn-secondary float-right">Xem
+                            <a href="{{route('admin.getorder')}}" class="btn btn-sm btn-warning float-right">Xem
                                 Thêm</a>
                         </div>
                     </div>
                 </div>
+                @endif
+
+                {{-- bài viết gần đây --}}
+                @if(in_array('blog',$listPermissionOfParent))
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header border-transparent">
+                            <h3 class="card-title">Bài Viết Mới</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table m-0">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Khách Hàng</th>
+                                            <th>Số Điện Thoại</th>
+                                            <th>Địa Chỉ</th>
+                                            <th>Trạng Thái</th>
+                                            <th>Tổng Tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach($listOrder as $item)
+                                        <tr>
+                                            <td><a
+                                                    href="{{route('admin.detailorder',['id'=> $item -> id])}}">{{$item -> id}}</a>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-footer clearfix">
+                            <a href="" class="btn btn-sm btn-info float-left">Thêm Bài Viết</a>
+                            <a href="{{route('admin.getorder')}}" class="btn btn-sm btn-warning float-right">Xem
+                                Thêm</a>
+                        </div>
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>

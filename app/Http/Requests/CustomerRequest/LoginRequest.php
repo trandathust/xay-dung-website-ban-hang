@@ -24,15 +24,15 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'bail|required|',
-            'password' => 'bail|required',
+            'email_login' => 'bail|required|',
+            'password_login' => 'bail|required',
         ];
     }
     public function messages()
     {
         return [
-            'email.required' => 'Bạn chưa nhập email!',
-            'password.required' => 'Bạn chưa nhập mật khẩu!',
+            'email_login.required' => 'Bạn chưa nhập email!',
+            'password_login.required' => 'Bạn chưa nhập mật khẩu!',
         ];
     }
 }

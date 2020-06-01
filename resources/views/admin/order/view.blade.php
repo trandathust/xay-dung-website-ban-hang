@@ -13,69 +13,67 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="card-header">
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="navbar-nav mr-auto">
-                                <li class="nav-item dropdown">
-                                    <button class="  btn btn-primary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Lọc Đơn Hàng
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{route('admin.order.search.today')}}">Hôm
-                                            Nay</a>
-                                        <a class="dropdown-item" href="{{route('admin.order.search.yesterday')}}">Hôm
-                                            Qua</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{route('admin.order.search.week')}}">Tuần
-                                            Này</a>
-                                        <a class="dropdown-item" href="{{route('admin.order.search.lastweek')}}">Tuần
-                                            Trước</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{route('admin.order.search.month')}}">Tháng
-                                            Này</a>
-                                        <a class="dropdown-item" href="{{route('admin.order.search.lastmonth')}}">Tháng
-                                            Trước</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{route('admin.order.search.year')}}">Năm Nay</a>
-                                        <a class="dropdown-item" href="{{route('admin.order.search.lastyear')}}">Năm
-                                            Trước</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="{{route('admin.getorder')}}">Toàn Thời
-                                            Gian</a>
-                                    </div>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <form action="{{route('admin.order.search')}}" method="POST">
-                                        @csrf
-                                        <a class=" dropdown-toggle btn-warning btn" id=" navbarDropdown" role="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Tìm Kiếm Đơn Hàng
-                                        </a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <input id="name_text" type="text" onkeypress="return runScript(event)"
-                                                class="margin_box" placeholder="Theo tên"
-                                                data-url="{{route('admin.order.search')}}" name="name_text">
-                                            <input id="phone_text" type="text" onkeypress="return runScript(event)"
-                                                class="margin_box" placeholder="Theo số điện thoại"
-                                                data-url="{{route('admin.order.search')}}" name="phone_text" />
-                                            <input id="ID_order" type="text" onkeypress="return runScript(event)"
-                                                class="margin_box" placeholder="Theo mã đơn hàng"
-                                                data-url="{{route('admin.order.search')}}" name="ID_order" />
-                                            <input id="ID_product" type="text" onkeypress="return runScript(event)"
-                                                class="margin_box" placeholder="Theo mã sản phẩm"
-                                                data-url="{{route('admin.order.search')}}" name="ID_product" />
-                                            <input id="name_product" type="text" onkeypress="return runScript(event)"
-                                                class="margin_box" placeholder="Theo tên sản phẩm"
-                                                data-url="{{route('admin.order.search')}}" name="name_product" />
-                                            <div class="dropdown-divider"></div>
-                                            <button type="submit" class="btn btn-sm btn-primary text-center margin_box "
-                                                id="btn_submit_search">Tìm</button>
-                                        </div>
-                                    </form>
-                                </li>
-                            </ul>
+                    <div class="row">
+                        <div class="col col-2">
+                            <button class="  btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Lọc Đơn Hàng
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="{{route('admin.order.search.today')}}">Hôm
+                                    Nay</a>
+                                <a class="dropdown-item" href="{{route('admin.order.search.yesterday')}}">Hôm
+                                    Qua</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{route('admin.order.search.week')}}">Tuần
+                                    Này</a>
+                                <a class="dropdown-item" href="{{route('admin.order.search.lastweek')}}">Tuần
+                                    Trước</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{route('admin.order.search.month')}}">Tháng
+                                    Này</a>
+                                <a class="dropdown-item" href="{{route('admin.order.search.lastmonth')}}">Tháng
+                                    Trước</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{route('admin.order.search.year')}}">Năm Nay</a>
+                                <a class="dropdown-item" href="{{route('admin.order.search.lastyear')}}">Năm
+                                    Trước</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{route('admin.getorder')}}">Toàn Thời
+                                    Gian</a>
+                            </div>
+                        </div>
+                        <div class="col col-2">
+                            <form action="{{route('admin.order.search')}}" method="POST">
+                                @csrf
+                                <a class=" dropdown-toggle btn-warning btn" id=" navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Tìm Kiếm Đơn Hàng
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <input id="name_text" type="text" onkeypress="return runScript(event)"
+                                        class="margin_box" placeholder="Theo tên"
+                                        data-url="{{route('admin.order.search')}}" name="name_text">
+                                    <input id="phone_text" type="text" onkeypress="return runScript(event)"
+                                        class="margin_box" placeholder="Theo số điện thoại"
+                                        data-url="{{route('admin.order.search')}}" name="phone_text" />
+                                    <input id="ID_order" type="text" onkeypress="return runScript(event)"
+                                        class="margin_box" placeholder="Theo mã đơn hàng"
+                                        data-url="{{route('admin.order.search')}}" name="ID_order" />
+                                    <input id="ID_product" type="text" onkeypress="return runScript(event)"
+                                        class="margin_box" placeholder="Theo mã sản phẩm"
+                                        data-url="{{route('admin.order.search')}}" name="ID_product" />
+                                    <input id="name_product" type="text" onkeypress="return runScript(event)"
+                                        class="margin_box" placeholder="Theo tên sản phẩm"
+                                        data-url="{{route('admin.order.search')}}" name="name_product" />
+                                    <div class="dropdown-divider"></div>
+                                    <button type="submit" class="btn btn-sm btn-primary text-center margin_box "
+                                        id="btn_submit_search">Tìm</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col col-6"></div>
+                        <div class="col col-2">
                             <form class="form-inline my-2 my-lg-0">
                                 @csrf
                                 <div class="btn-group">
@@ -109,7 +107,8 @@
                                 </div>
                             </form>
                         </div>
-                    </nav>
+                    </div>
+
                 </div>
                 <div class="card-body">
                     <table id="example2" class="table table-bordered table-hover">
@@ -198,13 +197,9 @@
                 </div>
             </div>
         </div>
-        <!-- /.card -->
     </div>
-    <!-- /.container-fluid -->
 </div>
-<!-- /.content-wrapper -->
 @endsection
-
 
 @section('css')
 <!-- DataTables -->
@@ -214,9 +209,7 @@
 {{-- hình ảnh sản phẩm --}}
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/admin/order/view.css')}}">
 
-
 @endsection
-
 
 
 
