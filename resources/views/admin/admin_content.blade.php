@@ -342,7 +342,6 @@
                     <div class="card">
                         <div class="card-header border-transparent">
                             <h3 class="card-title">Bài Viết Mới</h3>
-
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
@@ -358,25 +357,42 @@
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Khách Hàng</th>
-                                            <th>Số Điện Thoại</th>
-                                            <th>Địa Chỉ</th>
-                                            <th>Trạng Thái</th>
-                                            <th>Tổng Tiền</th>
+                                            <th>Ngày Viết</th>
+                                            <th>Hình Ảnh</th>
+                                            <th>Tiêu Đề Bài Viết</th>
+
+                                            <th>Tác Giả</th>
+                                            <th>Hiện/Ẩn</th>
+                                            <th style="width: 10%">#</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        @foreach($listOrder as $item)
+                                    <tbody id="table_blog">
+                                        @foreach($listBlog as $blog)
                                         <tr>
-                                            <td><a
-                                                    href="{{route('admin.detailorder',['id'=> $item -> id])}}">{{$item -> id}}</a>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
+                                            <td>{{$blog -> id}}</td>
+                                            <td>{{$blog -> created_at}}</td>
+                                            <td><img class="image_title" src="{{$blog -> title_image_path}}"></td>
+
+                                            <td>{{$blog -> title}}</td>
+                                            <td>{{optional($blog ->user)-> name}}</td>
                                             <td>
+                                                <form method="POST" action="">
+                                                    @csrf
+                                                    <input type="hidden" name="id" id="id" value="{{$blog -> id}}">
+                                                    <input class="check_status"
+                                                        data-url="{{route('admin.editstatusblog',['id' => $blog -> id])}}"
+                                                        type="checkbox" name="status" @if($blog -> status ==1) value="0"
+                                                    checked
+                                                    @else value="1" @endif id="status">
+                                                </form>
                                             </td>
                                             <td>
+                                                <a href="{{route('admin.geteditblog',['id' => $blog-> id])}}"
+                                                    type="button" class="btn btn-warning btn-sm"><i
+                                                        class="fas fa-search"></i></a>
+                                                <a href="" data-url="{{route('admin.deleteblog',['id' => $blog-> id])}}"
+                                                    type="button" class="btn btn-danger btn-sm action_delete"><i
+                                                        class="fas fa-times"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -385,8 +401,9 @@
                             </div>
                         </div>
                         <div class="card-footer clearfix">
-                            <a href="" class="btn btn-sm btn-info float-left">Thêm Bài Viết</a>
-                            <a href="{{route('admin.getorder')}}" class="btn btn-sm btn-warning float-right">Xem
+                            <a href="{{route('admin.getaddblog')}}" class="btn btn-sm btn-info float-left">Thêm Bài
+                                Viết</a>
+                            <a href="{{route('admin.getviewblog')}}" class="btn btn-sm btn-warning float-right">Xem
                                 Thêm</a>
                         </div>
                     </div>
@@ -399,7 +416,7 @@
 
 @endsection
 @section('css')
-
+<link rel="stylesheet" type="text/css" href="{{asset('vendor/admin/blog/view.css')}}">
 @endsection
 
 @section('js')
@@ -408,4 +425,8 @@
 <script src="{{asset('adminlte/plugins/chart.js/Chart.min.js')}}"></script>
 <script src="{{asset('adminlte/dist/js/demo.js')}}"></script>
 <script src="{{asset('vendor/admin/dashboard/dashboard.js')}}"></script>
+
+{{-- sweetalert2  --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{asset('vendor/admin/blog/view.js')}}"></script>
 @endsection

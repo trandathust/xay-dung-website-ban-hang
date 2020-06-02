@@ -9,7 +9,7 @@ use Carbon\Carbon;
 use DB;
 use App\Models\Product;
 use App\Models\Status;
-
+use App\Models\Blog;
 
 
 
@@ -17,10 +17,12 @@ class DashboardController extends Controller
 {
     private $order;
     private $status;
-    public function __construct(Order $order, Status $status)
+    private $blog;
+    public function __construct(Order $order, Status $status, Blog $blog)
     {
         $this->order = $order;
         $this->status = $status;
+        $this->blog = $blog;
     }
     public function getDashboard()
     {
@@ -135,7 +137,11 @@ class DashboardController extends Controller
             ->select('orders.id as order_id', 'product_orders.price as price', 'product_orders.quantity as quantity', 'product_orders.price_sale as price_sale')
             ->get();
         $status = $this->status->all();
-        return view('admin.admin_content', compact('orderOfMonth', 'orderSaleOfMonth', 'percent_money', 'listProductSale_Good', 'time_now', 'percent_product', 'listProduct', 'listOrder', 'totalPrice', 'status'));
+
+        // xem bài viết mới
+        $listBlog = $this->blog
+            ->latest()->paginate(4);
+        return view('admin.admin_content', compact('listBlog', 'orderOfMonth', 'orderSaleOfMonth', 'percent_money', 'listProductSale_Good', 'time_now', 'percent_product', 'listProduct', 'listOrder', 'totalPrice', 'status'));
     }
 
     function listProductSale($product)

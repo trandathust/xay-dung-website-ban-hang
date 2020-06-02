@@ -37,9 +37,9 @@ class SettingMiddleware
         $listSetting = $this->setting->all();
         view()->share('footer', $footer);
         view()->share('listSetting', $listSetting);
-        $listBrand = $this->brand->all();
+        $listBrand = $this->brand->paginate(10);
         view()->share('listBrand', $listBrand);
-        $listCategory = $this->category->where('parent_id', 0)->get();
+        $listCategory = $this->category->where('parent_id', 0)->paginate(10);
         view()->share('listCategory', $listCategory);
         $listTag = $this->tag->paginate(8);
         view()->share('listTag', $listTag);

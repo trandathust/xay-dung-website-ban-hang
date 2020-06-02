@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
         //Categories- Danh mục sản phẩm
         Route::prefix('category')->group(function () {
             Route::get('', 'AdminController\CategoryController@getAddCategory')->name('admin.addcategory')->middleware('CheckACL:add-category');
-            Route::post('add', 'AdminController\CategoryController@postAddCategory')->middleware('CheckACL:add-category');
+            Route::post('', 'AdminController\CategoryController@postAddCategory')->middleware('CheckACL:add-category');
             Route::get('edit/{id}', 'AdminController\CategoryController@getEditCategory')->name('admin.editcategory')->middleware('CheckACL:edit-category');
             Route::post('edit/{id}', 'AdminController\CategoryController@postEditCategory')->middleware('CheckACL:edit-category');
             Route::get('delete/{id}', 'AdminController\CategoryController@DeleteCategory')->name('admin.deletecategory')->middleware('CheckACL:delete-category');
@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
         //Menus - Menu phía trên
         Route::prefix('menu')->group(function () {
             Route::get('', 'AdminController\MenuController@getAddMenu')->name('admin.addmenu')->middleware('CheckACL:add-menu');
-            Route::post('add', 'AdminController\MenuController@postAddMenu')->middleware('CheckACL:add-menu');
+            Route::post('', 'AdminController\MenuController@postAddMenu')->middleware('CheckACL:add-menu');
             Route::get('edit/{id}', 'AdminController\MenuController@getEditMenu')->name('admin.editmenu')->middleware('CheckACL:edit-menu');
             Route::post('edit/{id}', 'AdminController\MenuController@postEditMenu')->middleware('CheckACL:edit-menu');
             Route::get('delete/{id}', 'AdminController\MenuController@DeleteMenu')->name('admin.deletemenu')->middleware('CheckACL:delete-menu');

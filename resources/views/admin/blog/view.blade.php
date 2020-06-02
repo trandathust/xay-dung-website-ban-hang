@@ -66,12 +66,9 @@
                     </table>
                 </div>
             </div>
-            <!-- /.card -->
         </div>
-        <!-- /.container-fluid -->
     </div>
 </div>
-<!-- /.content-wrapper -->
 @endsection
 
 
@@ -80,13 +77,9 @@
 <!-- DataTables -->
 <link rel="stylesheet" href="{{asset('adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
 <link rel="stylesheet" href="{{asset('adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 {{-- hình ảnh sản phẩm --}}
 <link rel="stylesheet" type="text/css" href="{{asset('vendor/admin/blog/view.css')}}">
 @endsection
-
-
-
 
 @section('js')
 {{-- sweetalert2  --}}

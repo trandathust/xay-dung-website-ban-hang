@@ -11,7 +11,6 @@ $(function () {
     });
 });
 
-
 $('.btn-submit-menu').on('click', function (event) {
     $('.sub_error').hide();
     event.preventDefault();
@@ -33,7 +32,7 @@ $('.btn-submit-menu').on('click', function (event) {
                 var html = '<tr>';
                 html += '<td><a href="' + url + '">' + name + '</a></td>';
                 html += '<td><a href="' + url + '">' + url + '</a></td>';
-                html += '<td> <a href="/admin/menu/edit/' + id + '" class="btn btn-primary btn-sm" >Sửa</a>' + '<a href="" data-url ="/admin/menu/delete/' + id + '" type="button" class="btn btn-danger btn-sm action_delete">Xóa</a></td></tr>'
+                html += '<td> <a href="/admin/menu/edit/' + id + '" class="btn btn-primary btn-sm" ><i class="fas fa-edit"></i></a>' + '<a href="" data-url ="/admin/menu/delete/' + id + '" type="button" class="btn btn-danger btn-sm action_delete"><i class="fas fa-times" ></i ></a></td></tr>'
                 $('#example2').prepend(html);
                 $('#insert_menu')[0].reset();
             }
