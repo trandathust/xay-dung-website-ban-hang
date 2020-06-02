@@ -14,8 +14,8 @@ class CreateColumnPriceToTableProductOrder extends Migration
     public function up()
     {
         Schema::table('product_orders', function (Blueprint $table) {
-            $table -> integer('price');
-            $table -> integer('price_sale');
+            $table->integer('price');
+            $table->integer('price_sale')->nullable();
         });
     }
 

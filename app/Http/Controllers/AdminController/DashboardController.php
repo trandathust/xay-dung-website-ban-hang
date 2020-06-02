@@ -104,7 +104,7 @@ class DashboardController extends Controller
 
 
         $day_old = Carbon::now()->subDays(60)->format('Y-m-d');
-        $percent_product = 0;
+        $percent_product = [];
         foreach ($productSell_Good as $key => $value) {
             $productSell_old = DB::table('product_orders')
                 ->where('product_id', $value->idProduct)

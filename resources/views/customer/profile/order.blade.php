@@ -4,7 +4,6 @@
 @endsection
 @section('content')
 
-
 <section>
 	<div class="container">
 		<div class="row">
@@ -43,7 +42,7 @@
 				</div>
 			</div>
 			<div class="col-sm-1">
-				
+
 			</div>
 			@if(request()->type == null)
 				<div class="col-sm-9 padding-right">
@@ -85,7 +84,7 @@
 
 								@foreach($listOrderDetail as $product)
 								@if($order -> id == $product -> id)
-								<?php 
+								<?php
 								$total = $total + $product -> price * $product -> quantity;
 								if($product -> price == $product -> price_sale || $product -> price_sale == null)
 									$total_sale  = $total_sale + $product -> price * $product -> quantity;
@@ -133,7 +132,7 @@
 												<td style="color: #FE980F">{{$order -> display_name}}</td>
 											</tr>
 											<tr>
-												
+
 											</tr>
 											<tr></tr>
 										</table>
@@ -171,7 +170,7 @@
 												</form>
 													@endif
 												</td>
-												
+
 											</tr>
 										</table>
 									</td>
@@ -223,7 +222,7 @@
 
 								@foreach($listOrderDetail as $product)
 								@if($order -> id == $product -> id )
-								<?php 
+								<?php
 								$total = $total + $product -> price * $product -> quantity;
 								if($product -> price == $product -> price_sale || $product -> price_sale == null)
 									$total_sale  = $total_sale + $product -> price * $product -> quantity;
@@ -271,7 +270,7 @@
 												<td style="color: #FE980F">{{$order -> display_name}}</td>
 											</tr>
 											<tr>
-												
+
 											</tr>
 											<tr></tr>
 										</table>
@@ -351,7 +350,7 @@
 
 								@foreach($listOrderDetail as $product)
 								@if($order -> id == $product -> id)
-								<?php 
+								<?php
 								$total = $total + $product -> price * $product -> quantity;
 								if($product -> price == $product -> price_sale || $product -> price_sale == null)
 									$total_sale  = $total_sale + $product -> price * $product -> quantity;
@@ -399,7 +398,7 @@
 												<td style="color: #FE980F">{{$order -> display_name}}</td>
 											</tr>
 											<tr>
-												
+
 											</tr>
 											<tr></tr>
 										</table>
@@ -479,7 +478,7 @@
 
 								@foreach($listOrderDetail as $product)
 								@if($order -> id == $product -> id)
-								<?php 
+								<?php
 								$total = $total + $product -> price * $product -> quantity;
 								if($product -> price == $product -> price_sale || $product -> price_sale == null)
 									$total_sale  = $total_sale + $product -> price * $product -> quantity;
@@ -527,7 +526,7 @@
 												<td style="color: #FE980F">{{$order -> display_name}}</td>
 											</tr>
 											<tr>
-												
+
 											</tr>
 											<tr></tr>
 										</table>
@@ -561,7 +560,7 @@
 												<td>
 													<a href="{{route('getShopping')}}" class="btn btn-primary ">ĐẶT LẠI</a>
 												</td>
-												
+
 											</tr>
 										</table>
 									</td>
@@ -585,7 +584,7 @@
 						<div class="col col-sm-2">
 							<a href="{{route('customer.getorder'). '?type=delivery'}}" type="button" class="btn btn-css btn-block">Đang Giao</a>
 						</div>
-						
+
 						<div class="col col-sm-2">
 							<a href="{{route('customer.getorder'). '?type=received'}}" type="button" class="btn btn-css btn-block">Đã Nhận</a>
 						</div>
@@ -615,7 +614,7 @@
 
 								@foreach($listOrderDetail as $product)
 								@if($order -> id == $product -> id)
-								<?php 
+								<?php
 								$total = $total + $product -> price * $product -> quantity;
 								if($product -> price == $product -> price_sale || $product -> price_sale == null)
 									$total_sale  = $total_sale + $product -> price * $product -> quantity;
@@ -663,7 +662,7 @@
 												<td style="color: #FE980F">{{$order -> display_name}}</td>
 											</tr>
 											<tr>
-												
+
 											</tr>
 											<tr></tr>
 										</table>
@@ -697,7 +696,7 @@
 												<td>
 													<a href="{{route('getShopping')}}" class="btn btn-primary ">ĐẶT LẠI</a>
 												</td>
-												
+
 											</tr>
 										</table>
 									</td>

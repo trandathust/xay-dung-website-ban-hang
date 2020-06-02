@@ -85,8 +85,13 @@ class HomeController extends Controller
             $i = $i + 1;
         }
         rsort($listProductSelling);
-        if ($listProductSelling) {
+        if (count($listProductSelling) >= 3) {
             for ($i = 0; $i < 3; $i++) //in ra vị trí của ký tự trong chuỗi và ký tự tương ứng
+            {
+                $listProductSelling_3[$i] = $listProductSelling[$i];
+            }
+        } else {
+            for ($i = 0; $i < count($listProductSelling); $i++) //in ra vị trí của ký tự trong chuỗi và ký tự tương ứng
             {
                 $listProductSelling_3[$i] = $listProductSelling[$i];
             }

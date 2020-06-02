@@ -14,12 +14,12 @@ class AddColumnToTableProduct extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table -> integer('price_sale');
-            $table-> datetime('start_sale');
-            $table -> datetime('end_sale');
-            $table -> integer('supplier_id');
-            $table -> string('size');
-            $table -> float('weight');
+            $table->integer('price_sale')->nullable();
+            $table->datetime('start_sale')->nullable();
+            $table->datetime('end_sale')->nullable();
+            $table->integer('supplier_id');
+            $table->string('size')->nullable();
+            $table->float('weight')->nullable();
         });
     }
 

@@ -11,7 +11,7 @@
                 @if(request()->type == null)
                 <div class="card-header">
                     <nav class="navbar navbar-light bg-light justify-content-between">
-                        <a href="{{route('admin.addproduct')}}" type="submit" class="btn btn-primary ">Thêm
+                        <a href="{{route('admin.addproduct')}}" class="btn btn-primary ">Thêm
                             mới</a>
                         <div class="btn-group" role="group">
                             <button id="btnGroupDrop1" type="button"
