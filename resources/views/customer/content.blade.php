@@ -16,7 +16,7 @@
                     <h2 class="title text-center"><a href="{{route('getNew')}}" style="color: #FE980F">SẢN PHẨM MỚI</a>
                     </h2>
                     @foreach($listProductlatest as $item)
-                    <form>
+                    <form action="{{route('buyNow')}}" method="POST">
                         @csrf
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
@@ -40,8 +40,8 @@
                                         <a data-url="{{route('saveCart',['id'=> $item -> id])}}"
                                             class="btn btn-default add-to-cart btn_add_to_cart"><i
                                                 class="fa fa-shopping-cart"></i>Thêm Vào Giỏ</a>
-                                        <a data-url="{{route('saveCart',['id'=> $item -> id])}}"
-                                            class="btn btn-default add-to-cart btn_buy_now">Mua Ngay</a>
+                                        <button href="{{route('buyNow')}}" class="btn btn-default add-to-cart"
+                                            type="submit">Mua Ngay</button>
                                     </div>
                                     @if($item['price'] == $item['price_sale'] || $item['price_sale'] == null || $mytime
                                     > $item -> end_sale )
@@ -69,7 +69,7 @@
                         <div class="carousel-inner">
                             <div class="item active">
                                 @foreach($listProductSale as $item)
-                                <form>
+                                <form action="{{route('buyNow')}}" method="POST">
                                     @csrf
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
@@ -95,8 +95,9 @@
                                                     <a data-url="{{route('saveCart',['id'=> $item -> id])}}"
                                                         class="btn btn-default add-to-cart btn_add_to_cart"><i
                                                             class="fa fa-shopping-cart"></i>Thêm Vào Giỏ</a>
-                                                    <a data-url="{{route('saveCart',['id'=> $item -> id])}}"
-                                                        class="btn btn-default add-to-cart btn_buy_now">Mua Ngay</a>
+                                                    <button href="{{route('buyNow')}}"
+                                                        class="btn btn-default add-to-cart" type="submit">Mua
+                                                        Ngay</button>
                                                 </div>
                                                 <img src="{{asset('eshopper/images/home/sale.png')}}" class="new"
                                                     alt="" />
@@ -109,7 +110,7 @@
                             </div>
                             <div class="item">
                                 @foreach($listProductSale1 as $item)
-                                <form>
+                                <form action="{{route('buyNow')}}" method="POST">
                                     @csrf
                                     <div class="col-sm-4">
                                         <div class="product-image-wrapper">
@@ -135,8 +136,9 @@
                                                     <a data-url="{{route('saveCart',['id'=> $item -> id])}}"
                                                         class="btn btn-default add-to-cart btn_add_to_cart"><i
                                                             class="fa fa-shopping-cart"></i>Thêm Vào Giỏ</a>
-                                                    <a data-url="{{route('saveCart',['id'=> $item -> id])}}"
-                                                        class="btn btn-default add-to-cart btn_buy_now">Mua Ngay</a>
+                                                    <button href="{{route('buyNow')}}"
+                                                        class="btn btn-default add-to-cart" type="submit">Mua
+                                                        Ngay</button>
                                                 </div>
                                                 <img src="{{asset('eshopper/images/home/sale.png')}}" class="new"
                                                     alt="" />
@@ -163,7 +165,7 @@
                     <!--category-tab-->
                     <h2 class="title text-center">SẢN PHẨM BÁN CHẠY</h2>
                     @foreach($listProductSelling_3 as $item)
-                    <form>
+                    <form action="{{route('buyNow')}}" method="POST">
                         @csrf
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
@@ -188,8 +190,8 @@
                                         <a data-url="{{route('saveCart',['id'=> $item['id']])}}"
                                             class="btn btn-default add-to-cart btn_add_to_cart"><i
                                                 class="fa fa-shopping-cart"></i>Thêm Vào Giỏ</a>
-                                        <a data-url="{{route('saveCart',['id'=> $item['id']])}}"
-                                            class="btn btn-default add-to-cart btn_buy_now">Mua Ngay</a>
+                                        <button href="{{route('buyNow')}}" class="btn btn-default add-to-cart"
+                                            type="submit">Mua Ngay</button>
                                     </div>
                                     @if($item['price'] == $item['price_sale'] || $item['price_sale'] == null || $mytime
                                     > $item['end_sale'])

@@ -35,15 +35,14 @@ class UserController extends Controller
     //xem và thêm người dùng
     public function getAddUser()
     {
-        $listUser = $this->user->get();
         $listRole = $this->role->all();
         $listUserRole = DB::table('users')
             ->join('role_user', 'users.id', '=', 'role_user.user_id')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->whereNull('roles.deleted_at')
-            ->select('users.id', 'roles.display_name')
+            ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.phone_number as phone_number', 'roles.display_name as display_name')
             ->get();
-        return view('admin.user.add', compact('listUser', 'listRole', 'listUserRole'));
+        return view('admin.user.add', compact('listRole', 'listUserRole'));
     }
     public function postAddUser(UserRequest $request)
     {
@@ -87,18 +86,17 @@ class UserController extends Controller
     //show form sửa thông tin
     public function getEditUser($id)
     {
-        $listUser = $this->user->get();
         $listRole = $this->role->all();
         $listUserRole = DB::table('users')
             ->join('role_user', 'users.id', '=', 'role_user.user_id')
             ->join('roles', 'role_user.role_id', '=', 'roles.id')
             ->whereNull('roles.deleted_at')
-            ->select('users.id', 'roles.display_name')
+            ->select('users.id as id', 'users.name as name', 'users.email as email', 'users.phone_number as phone_number', 'roles.display_name as display_name')
             ->get();
         //lấy thông tin của người dùng cần sửa.
         $user = $this->user->findOrfail($id);
         $getRoleOfUser = DB::table('role_user')->where('user_id', $id)->pluck('role_id');
-        return view('admin.user.edit', compact('listUser', 'listRole', 'listUserRole', 'user', 'getRoleOfUser'));
+        return view('admin.user.edit', compact('listRole', 'listUserRole', 'user', 'getRoleOfUser'));
     }
 
     //sửa thông tin
@@ -232,7 +230,23 @@ class UserController extends Controller
             ->get();
         return view('admin.user.list', compact('userenable', 'userdisable', 'listUserRole'));
     }
-    //
+    //xem danh sách khách hàng
+    public function getListCustomer()
+    {
+        $listNV = DB::table('users')
+            ->whereNull('users.deleted_at')
+            ->join('role_user', 'users.id', '=', 'role_user.user_id')
+            ->join('roles', 'role_user.role_id', '=', 'roles.id')
+            // ->whereNull('roles.deleted_at')
+            ->select('users.id as id')
+            ->pluck('id');
+
+        $listCustomer = DB::table('users')
+            ->whereNull('users.deleted_at')
+            ->whereNotIn('users.id', $listNV)
+            ->get();
+        return view('admin.user.customer', compact('listCustomer'));
+    }
 
 
     public function getProfile()

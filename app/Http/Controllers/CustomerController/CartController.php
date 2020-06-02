@@ -27,6 +27,7 @@ class CartController extends Controller
     public function saveCart(Request $request, $id)
     {
         $product = $this->product->findOrfail($id);
+
         $cart = session()->get('cart');
         //nếu giỏ hàng không tồn tại
         if (!$cart) {
@@ -41,9 +42,7 @@ class CartController extends Controller
                     "feature_image_path" => $product->feature_image_path
                 ]
             ];
-
             session()->put('cart', $cart);
-
             return response()->json([
                 'code' => 200,
                 'message' => 'success'
@@ -51,9 +50,7 @@ class CartController extends Controller
         }
         //nếu giỏ hàng đã tồn tại, check thấy sản phẩm này đã có thì tăng số lượng lên
         if (isset($cart[$id])) {
-
             $cart[$id]['quantity'] = $cart[$id]['quantity'] + $request->quantity;
-
             session()->put('cart', $cart);
 
             return response()->json([
@@ -71,7 +68,6 @@ class CartController extends Controller
             "end_sale" => $product->end_sale,
             "feature_image_path" => $product->feature_image_path
         ];
-
         session()->put('cart', $cart);
         return response()->json([
             'code' => 200,
@@ -106,7 +102,6 @@ class CartController extends Controller
         }
     }
 
-
     public function reOrder($id)
     {
         $cart = session()->get('cart');
@@ -135,7 +130,6 @@ class CartController extends Controller
             }
             //nếu giỏ hàng đã tồn tại, check thấy sản phẩm này đã có thì tăng số lượng lên
             elseif (isset($cart[$id])) {
-                dd(1);
                 $cart[$id]['quantity'] = $cart[$id]['quantity'] + $item->quantity;
                 session()->put('cart', $cart);
             }
@@ -156,5 +150,47 @@ class CartController extends Controller
         }
         //dd($cart, $product);
         return redirect()->route('getCheckout');
+    }
+
+    public function buyNow(Request $request)
+    {
+        $id = $request->id;
+        $product = $this->product->findOrfail($id);
+        $cart = session()->get('cart');
+        //nếu giỏ hàng không tồn tại
+        if (!$cart) {
+            $cart = [
+                $id => [
+                    "id" => $product->id,
+                    "name" => $product->name,
+                    "quantity" => $request->quantity,
+                    "price" => $product->price,
+                    "price_sale" => $product->price_sale,
+                    "end_sale" => $product->end_sale,
+                    "feature_image_path" => $product->feature_image_path
+                ]
+            ];
+            session()->put('cart', $cart);
+            return redirect()->route('getCart');
+        }
+        //nếu giỏ hàng đã tồn tại, check thấy sản phẩm này đã có thì tăng số lượng lên
+        if (isset($cart[$id])) {
+            $cart[$id]['quantity'] = $cart[$id]['quantity'] + $request->quantity;
+            session()->put('cart', $cart);
+
+            return redirect()->route('getCart');
+        }
+        // nếu giỏ hàng đã tồn tại, nhưng chưa có sản phẩm này thì tạo mới 1 sp trong giỏ
+        $cart[$id] = [
+            "id" => $product->id,
+            "name" => $product->name,
+            "quantity" => $request->quantity,
+            "price" => $product->price,
+            "price_sale" => $product->price_sale,
+            "end_sale" => $product->end_sale,
+            "feature_image_path" => $product->feature_image_path
+        ];
+        session()->put('cart', $cart);
+        return redirect()->route('getCart');
     }
 }

@@ -22,6 +22,16 @@ class CreateProductsTable extends Migration
             $table->string('content');
             $table->integer('category_id');
             $table->integer('user_id');
+            $table->integer('quantity');
+            $table->string('brand_id');
+            $table->integer('price_sale')->nullable();
+            $table->datetime('start_sale')->nullable();
+            $table->datetime('end_sale')->nullable();
+            $table->integer('supplier_id');
+            $table->string('size')->nullable();
+            $table->float('weight')->nullable();
+            $table->boolean('status')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

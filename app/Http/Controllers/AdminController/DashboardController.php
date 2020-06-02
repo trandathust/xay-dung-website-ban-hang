@@ -123,12 +123,10 @@ class DashboardController extends Controller
             }
         }
 
-
-        // dd($percent_product[1], $productSell_Good );
         //xem sản phẩm mới thêm
 
         $listProduct = DB::table('products')
-            ->latest()->paginate(4);
+            ->latest()->paginate(5);
         $listOrder = $this->order
             ->latest()->paginate(4);
         $totalPrice = DB::table('orders')

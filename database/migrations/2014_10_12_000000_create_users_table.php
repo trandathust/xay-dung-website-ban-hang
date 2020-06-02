@@ -22,6 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('sex')->nullable();
             $table->string('address')->nullable();
             $table->date('birthday')->nullable();
+            $table->string('avatar_path')->nullable();
+            $table->string('avatar_name')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

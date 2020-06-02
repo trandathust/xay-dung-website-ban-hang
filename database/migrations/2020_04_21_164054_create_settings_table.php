@@ -15,6 +15,7 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->string('config_key');
             $table->text('config_value');
             $table->softDeletes();

@@ -19,7 +19,9 @@ class CreateSlidersTable extends Migration
             $table->string('description');
             $table->string('image_path');
             $table->string('image_name');
-            $table -> softDeletes();
+            $table->text('url');
+            $table->boolean('status')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

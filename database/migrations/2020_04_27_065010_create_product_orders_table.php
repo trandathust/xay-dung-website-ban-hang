@@ -15,10 +15,12 @@ class CreateProductOrdersTable extends Migration
     {
         Schema::create('product_orders', function (Blueprint $table) {
             $table->id();
-            $table -> integer('order_id');
-            $table -> integer('product_id');
-            $table -> integer('quantity');
-            $table -> softDeletes();
+            $table->integer('order_id');
+            $table->integer('product_id');
+            $table->integer('quantity');
+            $table->integer('price');
+            $table->integer('price_sale')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

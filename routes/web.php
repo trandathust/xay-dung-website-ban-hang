@@ -25,14 +25,15 @@ Route::middleware(['auth'])->group(function () {
             Route::get('delete/{id}', 'AdminController\UserController@DeleteUser')->name('admin.deleteuser')->middleware('CheckACL:delete-user');
             Route::get('restore/{id}', 'AdminController\UserController@RestoreUser')->name('admin.restoreuser')->middleware('CheckACL:delete-user');
             Route::get('', 'AdminController\UserController@getListUser')->name('admin.listuser')->middleware('CheckACL:list-user');
+            Route::get('list-customer', 'AdminController\UserController@getListCustomer')->name('admin.listcustomer')->middleware('CheckACL:list-user');
         });
         //profile người dùng
         Route::prefix('profile')->group(function () {
-            Route::get('', 'AdminController\UserController@getProfile')->name('admin.profile');
-            Route::get('edit', 'AdminController\UserController@getEditProfile')->name('admin.editprofile');
-            Route::post('edit', 'AdminController\UserController@postEditProfile')->name('admin.posteditprofile');
-            Route::get('change-password', 'AdminController\UserController@getChangePassword')->name('admin.getchangepassword');
-            Route::post('change-password', 'AdminController\UserController@postChangePassword')->name('admin.postchangepassword');
+            Route::get('', 'AdminController\UserController@getProfile')->name('admin.profile')->middleware('CheckACL:dashboard');
+            Route::get('edit', 'AdminController\UserController@getEditProfile')->name('admin.editprofile')->middleware('CheckACL:dashboard');
+            Route::post('edit', 'AdminController\UserController@postEditProfile')->name('admin.posteditprofile')->middleware('CheckACL:dashboard');
+            Route::get('change-password', 'AdminController\UserController@getChangePassword')->name('admin.getchangepassword')->middleware('CheckACL:dashboard');
+            Route::post('change-password', 'AdminController\UserController@postChangePassword')->name('admin.postchangepassword')->middleware('CheckACL:dashboard');
         });
         //vai trò và quyền của vai trò
         Route::prefix('role')->group(function () {
@@ -107,16 +108,17 @@ Route::middleware(['auth'])->group(function () {
             Route::get('detail/{id}', 'AdminController\OrderController@getDetailOrder')->name('admin.detailorder')->middleware('CheckACL:list-order');
             Route::post('update/{id}', 'AdminController\OrderController@updateOrder')->name('admin.updateorder')->middleware('CheckACL:update-order');
             Route::get('delete/{id}', 'AdminController\OrderController@deleteOrder')->name('admin.deleteorder')->middleware('CheckACL:delete-order');
-            Route::post('search', 'AdminController\OrderController@postSearch')->name('admin.order.search');
-            Route::get('search-today', 'AdminController\OrderController@searchToday')->name('admin.order.search.today');
-            Route::get('search-yesterday', 'AdminController\OrderController@searchYesterday')->name('admin.order.search.yesterday');
-            Route::get('search-week', 'AdminController\OrderController@searchWeek')->name('admin.order.search.week');
-            Route::get('search-lastweek', 'AdminController\OrderController@searchLastWeek')->name('admin.order.search.lastweek');
-            Route::get('search-month', 'AdminController\OrderController@searchMonth')->name('admin.order.search.month');
-            Route::get('search-lastmonth', 'AdminController\OrderController@searchLastMonth')->name('admin.order.search.lastmonth');
-            Route::get('search-year', 'AdminController\OrderController@searchYear')->name('admin.order.search.year');
-            Route::get('search-lastyear', 'AdminController\OrderController@searchLastYear')->name('admin.order.search.lastyear');
-            Route::get('search-custom', 'AdminController\OrderController@searchCustom')->name('admin.order.search.custom');
+            Route::post('search', 'AdminController\OrderController@postSearch')->name('admin.order.search')->middleware('CheckACL:list-order');
+            Route::get('search-today', 'AdminController\OrderController@searchToday')->name('admin.order.search.today')->middleware('CheckACL:list-order');
+            Route::get('search-yesterday', 'AdminController\OrderController@searchYesterday')->name('admin.order.search.yesterday')->middleware('CheckACL:list-order');
+            Route::get('search-week', 'AdminController\OrderController@searchWeek')->name('admin.order.search.week')->middleware('CheckACL:list-order');
+            Route::get('search-lastweek', 'AdminController\OrderController@searchLastWeek')->name('admin.order.search.lastweek')->middleware('CheckACL:list-order');
+            Route::get('search-month', 'AdminController\OrderController@searchMonth')->name('admin.order.search.month')->middleware('CheckACL:list-order');
+            Route::get('search-lastmonth', 'AdminController\OrderController@searchLastMonth')->name('admin.order.search.lastmonth')->middleware('CheckACL:list-order');
+            Route::get('search-year', 'AdminController\OrderController@searchYear')->name('admin.order.search.year')->middleware('CheckACL:list-order');
+            Route::get('search-lastyear', 'AdminController\OrderController@searchLastYear')->name('admin.order.search.lastyear')->middleware('CheckACL:list-order');
+            Route::get('search-custom', 'AdminController\OrderController@searchCustom')->name('admin.order.search.custom')->middleware('CheckACL:list-order');
+            Route::get('order-of-user/{id}', 'AdminController\OrderController@listOrderOfUser')->name('admin.list.order.of.user')->middleware('CheckACL:list-order');
         });
 
         //nhà cung cấp hàng
@@ -140,7 +142,7 @@ Route::middleware(['auth'])->group(function () {
 
         //in print
         Route::prefix('print')->group(function () {
-            Route::get('print-review/{id}', 'AdminController\PrintController@getPrint')->name('admin.getPrint');
+            Route::get('print-review/{id}', 'AdminController\PrintController@getPrint')->name('admin.getPrint')->middleware('CheckACL:dashboard');
         });
         //export file
         Route::prefix('export')->group(function () {
@@ -165,9 +167,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('logout', 'AdminController\AdminLoginController@logout')->name('admin.logout');
     });
 });
-
-
-
 
 /*
         |--------------------------------------------------------------------------
@@ -212,6 +211,7 @@ Route::middleware('Setting')->group(function () {
     Route::prefix('cart')->group(function () {
         Route::get('/', 'CustomerController\CartController@getCart')->name('getCart');
         Route::post('save/{id}', 'CustomerController\CartController@saveCart')->name('saveCart');
+        Route::post('/', 'CustomerController\CartController@buyNow')->name('buyNow');
         Route::patch('update-cart', 'CustomerController\CartController@update')->name('updatecart');
         Route::delete('remove-from-cart', 'CustomerController\CartController@remove')->name('deletecart');
     });

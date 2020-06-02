@@ -11,6 +11,7 @@ use App\Models\Status;
 use App\Models\Setting;
 use DB;
 use Carbon\Carbon;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -19,13 +20,15 @@ class OrderController extends Controller
     private $productOrder;
     private $status;
     private $setting;
-    public function __construct(Order $order, Product $product, ProductOrder $productOrder, Status $status, Setting $setting)
+    private $user;
+    public function __construct(User $user, Order $order, Product $product, ProductOrder $productOrder, Status $status, Setting $setting)
     {
         $this->order = $order;
         $this->product = $product;
         $this->productOrder = $productOrder;
         $this->status = $status;
         $this->setting = $setting;
+        $this->user = $user;
     }
     public function getOrder()
     {
@@ -298,5 +301,24 @@ class OrderController extends Controller
             ->get();
         $status = $this->status->all();
         return view('admin.order.view', compact('listOrder', 'totalPrice', 'status'));
+    }
+
+
+    public function listOrderOfUser($id)
+    {
+        $user = $this->user->findOrFail($id);
+        $listOrderDetail = DB::table('orders')
+            ->where('orders.user_id', '=', $id)
+            ->join('product_orders', 'orders.id', '=', 'product_orders.order_id')
+            ->join('products', 'product_orders.product_id', '=', 'products.id')
+            ->join('statuses', 'orders.status_id', '=', 'statuses.id')
+            ->select('products.feature_image_path as image', 'products.name as name', 'product_orders.price as price', 'product_orders.price_sale as price_sale', 'product_orders.quantity as quantity', 'orders.id as id', 'products.id as product_id', 'orders.created_at as created_at', 'statuses.name as status_name')
+            ->get();
+        $listOrder = DB::table('orders')
+            ->where('orders.user_id', '=', $id)
+            ->join('statuses', 'orders.status_id', '=', 'statuses.id')
+            ->select('orders.id as id', 'statuses.name as status_name', 'statuses.display_name as display_name', 'orders.created_at as created_at')
+            ->get();
+        return view('admin.order.list_order_of_user', compact('user', 'listOrderDetail', 'listOrder'));
     }
 }

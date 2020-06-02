@@ -129,7 +129,13 @@
                 <li class="nav-item">
                     <a href="{{route('admin.listuser')}}" class="nav-link">
                         <i class="fas fa-address-book nav-icon"></i>
-                        <p>Danh Sách</p>
+                        <p>Danh Sách Nhân Viên</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.listcustomer')}}" class="nav-link">
+                        <i class="fas fa-address-book nav-icon"></i>
+                        <p>Danh Sách Khách Hàng</p>
                     </a>
                 </li>
                 @endif

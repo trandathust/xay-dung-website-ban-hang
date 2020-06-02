@@ -3,12 +3,8 @@
 <title>Đơn Hàng</title>
 @endsection
 @section('content')
-<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Main content -->
-    <!-- Content Header (Page header) -->
     @include('admin.general.content-header',['name' => 'Đơn Hàng'])
-    <!-- /.content-header -->
     <div class="content">
         <div class="container-fluid">
             <div class="card">
