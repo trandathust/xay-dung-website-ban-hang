@@ -11,8 +11,6 @@ use App\Models\Product;
 use App\Models\Status;
 use App\Models\Blog;
 
-
-
 class DashboardController extends Controller
 {
     private $order;
@@ -50,7 +48,6 @@ class DashboardController extends Controller
         foreach ($sale_now as $key => $value) {
             $total_money_now = $total_money_now + $value->value;
         }
-
         $sale_last_month = DB::table('orders')
             ->select(DB::raw('day(created_at) as getDay'), DB::raw('SUM(total_money) as value'))
             ->whereMonth('created_at', '=', $month - 1)
@@ -74,13 +71,14 @@ class DashboardController extends Controller
         }
 
 
+
         //số đơn hàng theo ngày trong 30 ngày
         $day = Carbon::now()->subDays(30)->format('Y-m-d');
         $orderOfMonth = DB::table('orders')
             ->select(DB::raw('day(created_at) as getDay'), DB::raw('COUNT(*) as value'))
             ->whereDate('created_at', '>=', $day)
             ->groupBy('getDay')
-            ->orderBy(DB::raw('month(created_at)'), 'ASC')
+            ->orderBy(DB::raw('created_at'), 'ASC')
             ->get();
 
 

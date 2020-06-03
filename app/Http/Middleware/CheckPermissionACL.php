@@ -19,7 +19,11 @@ class CheckPermissionACL
     public function handle($request, Closure $next, $permission = null)
     {
         $footer = DB::table('settings')->where('config_key', 'footer')->value('config_value');
+        $name_shop = DB::table('settings')->where('config_key', 'nameshop')->value('config_value');
+        $logo = DB::table('settings')->where('config_key', 'logo')->value('config_value');
         view()->share('footer', $footer);
+        view()->share('name_shop', $name_shop);
+        view()->share('logo', $logo);
         //lấy tất cả vai trò của người dùng khi truy cập vào hệ thống.
         $listRole = DB::table('users')
             ->where('users.id', Auth::id())

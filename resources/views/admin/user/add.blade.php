@@ -116,7 +116,7 @@
                                         <th>Vai Trò</th>
                                         <th>Email</th>
                                         <th>Số Điện Thoại</th>
-                                        <th>#</th>
+                                        <th style="width:18%">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>

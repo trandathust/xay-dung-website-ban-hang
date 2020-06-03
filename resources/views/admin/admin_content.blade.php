@@ -92,7 +92,7 @@
                                     <span class="text-success">
                                         <i class="fas fa-arrow-up"></i> {{$percent_money}}%
                                     </span>
-                                    <span class="text-muted">So với tháng trước</span>
+                                    <span class="text-muted">So với 30 ngày trước</span>
                                 </p>
                             </div>
 
@@ -362,7 +362,6 @@
                                             <th>Ngày Viết</th>
                                             <th>Hình Ảnh</th>
                                             <th>Tiêu Đề Bài Viết</th>
-
                                             <th>Tác Giả</th>
                                             <th>Hiện/Ẩn</th>
                                             <th style="width: 10%">#</th>

@@ -171,14 +171,14 @@ class CartController extends Controller
                 ]
             ];
             session()->put('cart', $cart);
-            return redirect()->route('getCart');
+            return redirect()->route('getCheckout');
         }
         //nếu giỏ hàng đã tồn tại, check thấy sản phẩm này đã có thì tăng số lượng lên
         if (isset($cart[$id])) {
             $cart[$id]['quantity'] = $cart[$id]['quantity'] + $request->quantity;
             session()->put('cart', $cart);
 
-            return redirect()->route('getCart');
+            return redirect()->route('getCheckout');
         }
         // nếu giỏ hàng đã tồn tại, nhưng chưa có sản phẩm này thì tạo mới 1 sp trong giỏ
         $cart[$id] = [
@@ -191,6 +191,6 @@ class CartController extends Controller
             "feature_image_path" => $product->feature_image_path
         ];
         session()->put('cart', $cart);
-        return redirect()->route('getCart');
+        return redirect()->route('getCheckout');
     }
 }
